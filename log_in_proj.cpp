@@ -10,6 +10,26 @@ using namespace std;
 
 string username;
 
+int show_data(){
+      char ch;
+
+    ifstream file(username + "_deepak_property.txt",ios::in);
+   cout << "\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;     
+   
+
+    string un,pw;
+
+   getline(file,un);
+   getline(file,pw);
+
+    while(!file.eof()){
+        file.get(ch);
+        cout << ch;
+    } 
+    file.close();
+    cout << "\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;  
+}
+
 int exist(string){
     
     ifstream fname(username + "_deepak_property.txt",ios::in);
@@ -123,14 +143,23 @@ else if (choice == 2)
         cout << "Logged in successfully..." << endl<<endl;
         int num;
         sub_loc :
-        cout<<"   Sub-Menu\n1.show data\n2.logout"<<endl;
+        cout<<"   Sub-Menu\n1.Show data\n2.Enter data\n2.Logout"<<endl;
         cout<<"Enter your option :";
         cin>>num;
 
         if(num == 1){
-            //show_data(username);
+            
+            cout<<"\nredirecting you to the data..."<<endl;
+            show_data();
+
+
         }
         else if(num == 2){
+            
+            // enter_data();
+
+        }
+        else if(num == 3){
             cout<<"logging you out ..."<<endl<<endl;
             system("pause");
             cout<<"logged out successfully.."<<endl;
