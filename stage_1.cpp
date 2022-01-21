@@ -30,6 +30,23 @@ int show_data(){
     cout << "\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;  
 }
 
+int enter_data()
+{     char data[1000];
+    cout<<"\nEnter the data you want to enter ...   : ";
+        ofstream file;
+        file.open(username+"_deepak_property.txt");
+        gotoline(file,3);
+        cin.getline(data,1000,'.');
+        file << data;
+
+        file.close();
+
+        cout<<"\n Data has been saved successfully...";
+
+    return 0;
+}
+
+
 int exist(string){
     
     ifstream fname(username + "_deepak_property.txt",ios::in);
@@ -143,7 +160,7 @@ else if (choice == 2)
         cout << "Logged in successfully..." << endl<<endl;
         int num;
         sub_loc :
-        cout<<"   Sub-Menu\n1.Show data\n2.Enter data\n2.Logout"<<endl;
+        cout<<"   Sub-Menu\n1.Show data\n2.Enter data\n3.Logout"<<endl;
         cout<<"Enter your option :";
         cin>>num;
 
@@ -156,7 +173,8 @@ else if (choice == 2)
         }
         else if(num == 2){
             
-            // enter_data();
+          enter_data();
+          goto sub_loc;
 
         }
         else if(num == 3){
