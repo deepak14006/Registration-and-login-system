@@ -5,17 +5,37 @@
 
 using namespace std;
 
-#define length 60 
-#define text_data 200 
+#define length 60
+#define text_data 83
 
 string username;
+
+
+int enter_data(){
+     fstream F;
+    // opening a file in input and output mode
+    F.open(username+"_deepak_property.txt",ios::app);
+
+   F.seekp(83,ios::beg);
+   F.seekp(83,ios::beg);
+
+   string info;
+   cout<<"\nEnter the data : ";
+   cin.ignore();  // this most important because previously when the data wa
+    getline(cin,info); //s stored  the curser remains into that file which causes breaking in input.
+    F<<info<<endl;
+    
+    F.close();
+     cout<<"\nData has been entered successfully......"<<endl;
+    return 0;
+}
 
 int show_data(){
       char ch;
 
     ifstream file(username + "_deepak_property.txt",ios::in);
-   cout << "\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;     
-   
+   cout << "\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;
+
 
     string un,pw;
 
@@ -25,13 +45,15 @@ int show_data(){
     while(!file.eof()){
         file.get(ch);
         cout << ch;
-    } 
+    }
     file.close();
-    cout << "\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;  
-}
+    cout << "\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;
+ 
+ return 0;
+ }
 
 int exist(string){
-    
+
     ifstream fname(username + "_deepak_property.txt",ios::in);
 
     if(fname){
@@ -45,15 +67,15 @@ bool IsloggedIN()
 {
     string password, un, pw;
     namer :
-    cout<< "Enter username :";
+    cout<< "\n\t\t\t\t\tEnter username :";
     cin>>username;
     //gets(username,83,'.');
     if(!exist(username)){
-        cout<<" username does'nt exist.. "<< endl << endl ;
-        cout<<"renter user name "<<endl<<endl;
+        cout<<" \t\t\t <<<<<<<<<  username does'nt exist..  >>>>>>>>>>"<< endl << endl ;
+        cout<<"\t\t\t  ^^^^^^^^^^   Renter user name  ^^^^^^^^^^"<<endl<<endl;
         goto namer;
     }
-    cout<< "Enter password:"; cin >> password;
+    cout<< "\n\t\t\t\t\tEnter password:"; cin >> password;
      ifstream read;
     read.open(username + "_deepak_property.txt",ios::app | ios::out);
     getline(read, un);  // This reads a single line from the text file which generally contains the username only
@@ -73,24 +95,24 @@ int main(){
 
 int choice;
 
-cycle: 
+cycle:
 
-cout<<"   MENU\n1: Register\n2: Login\n3. Exit \nYour choice :"; cin>>choice;
+cout<<"\t\t\t\t\t   MENU\n\t\t\t\t\t1: Register\n\t\t\t\t\t2: Login\n\t\t\t\t\t3. Exit \n\n\t\t\tYour choice :"; cin>>choice;
 
 if(choice == 1)
 {    rename :
     string password;
-    cout<<"select a username: "; cin>>username;
+    cout<<"\t\t\t\t\tselect a username: "; cin>>username;
     cout<<endl;
     label:
-    cout<<"select a password: "; cin>>password;
+    cout<<"\t\t\t\t\tselect a password: "; cin>>password;
     cout<<endl;
-    
-    
+
+
 
     if(exist(username))
     {
-        cout<<"\nThis user name already exists try with another name " << endl <<endl;
+        cout<<"\n\t\t\t ***** This user name already exists try with another name *****" << endl <<endl;
 
         goto rename;
     }
@@ -112,13 +134,13 @@ if(choice == 1)
     ofstream file;
 
     file.open(username + "_deepak_property.txt");
- 
-    file << username << endl <<password;
+
+    file << username << endl <<password<< endl <<"";
 
     file.close();
 
-    cout<<"\nUser registered successfully..."<< endl;
-    cout<<"\nNow you can try to log in.... "<< endl << endl;
+    cout<<"\n\t\t\t\t\t ******** User registered successfully... ******** "<< endl;
+    cout<<"\n\t\t\t\t\t######### Now you can try to log in.... #########"<< endl << endl;
 
     main();
 
@@ -130,39 +152,47 @@ else if (choice == 2)
 
     if (!status)
     {
-        cout<<"False login! "<< endl;
-        system("PAUSE");
+        cout<<"\n\t\t\t\t___________________________   False login!   ___________________________ "<< endl <<endl;
+        cout<<"\t\t\t"<<system("PAUSE");
 
-        cout<<"Try again with correct credentials "<< endl << endl;
+        cout<<"\n\t\t\t\t\t***Try again with correct credentials*** "<< endl << endl;
         goto menu;
         return 0;
     }
 
-    else 
+    else
     {   // int opt;
-        cout << "Logged in successfully..." << endl<<endl;
+        cout << "\n\t\t\t------------------  Logged in successfully...  ------------------" << endl<<endl;
+         cout<<"\n\n==============================================================================================================================================" << endl;
+   
+    
         int num;
         sub_loc :
-        cout<<"   Sub-Menu\n1.Show data\n2.Enter data\n2.Logout"<<endl;
-        cout<<"Enter your option :";
-        cin>>num;
+        cout<<"\n\n\t\t\t\t\tSub-Menu\n\t\t\t\t\t1.Show data\n\t\t\t\t\t2.Enter data\n\t\t\t\t\t3.Logout"<<endl;
+        cout<<"\n\t\t\t\t\tEnter your option :";
+        cin >> num;
 
         if(num == 1){
-            
+
             cout<<"\nredirecting you to the data..."<<endl;
-            show_data();
+            system("PAUSE");
+             cout<<"\n";
+             show_data();
+            goto sub_loc;
 
 
         }
         else if(num == 2){
-            
-            // enter_data();
 
+            enter_data();
+
+            goto sub_loc ;
         }
         else if(num == 3){
             cout<<"logging you out ..."<<endl<<endl;
-            system("pause");
+            system("PAUSE");
             cout<<"logged out successfully.."<<endl;
+                cout<<"\n\n==============================================================================================================================================" << endl;
             goto cycle;
         }
         else{

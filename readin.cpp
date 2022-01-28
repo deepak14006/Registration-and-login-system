@@ -1,0 +1,36 @@
+#include<iostream>
+#include<bits/stdc++.h>
+#include<string>
+using namespace std;
+
+
+
+int show_data(){
+      char ch;
+
+    ifstream file("deepak_kumar_deepak_property.txt",ios::in);
+   cout << "\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;
+
+
+    string un,pw;
+
+   getline(file,un);
+   getline(file,pw);
+
+    while(!file.eof()){
+        file.get(ch);
+        cout << ch;
+    }
+    file.close();
+    cout << "\n///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;
+ return 0;
+ }
+
+
+
+int main(){
+
+show_data();
+
+return 0;
+}
