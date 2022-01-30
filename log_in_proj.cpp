@@ -14,7 +14,7 @@ string username;
 int enter_data(){
      fstream F;
     // opening a file in input and output mode
-    F.open(username+"_deepak_property.txt",ios::app);
+    F.open(username+"_doc.dat", ios::app | ios::binary | ios::out);
 
    F.seekp(83,ios::beg);
    F.seekp(83,ios::beg);
@@ -22,8 +22,10 @@ int enter_data(){
    string info;
    cout<<"\nEnter the data : ";
    cin.ignore();  // this most important because previously when the data wa
-    getline(cin,info); //s stored  the curser remains into that file which causes breaking in input.
-    F<<info<<endl;
+   getline(cin,info); //s stored  the curser remains into that file which causes breaking in input.
+
+    F.write((char *) &info,sizeof(info));
+    //F<<info<<endl;
     
     F.close();
      cout<<"\nData has been entered successfully......"<<endl;
@@ -33,17 +35,20 @@ int enter_data(){
 int show_data(){
       char ch;
 
-    ifstream file(username + "_deepak_property.txt",ios::in);
+    ifstream file(username + "_doc.dat", ios::in | ios::binary);
    cout << "\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;
 
 
     string un,pw;
 
-   getline(file,un);
-   getline(file,pw);
+   //getline(file,un);
+   //getline(file,pw);
+
+    file.read((char *) &un, sizeof(un));
+    file.read((char *) &pw, sizeof(pw));
 
     while(!file.eof()){
-        file.get(ch);
+        file.read((char *) &file, sizeof(file));
         cout << ch;
     }
     file.close();
@@ -54,7 +59,7 @@ int show_data(){
 
 int exist(string){
 
-    ifstream fname(username + "_deepak_property.txt",ios::in);
+    ifstream fname(username + "_doc.dat", ios::in | ios::out | ios::binary);
 
     if(fname){
         fname.close();
@@ -77,10 +82,11 @@ bool IsloggedIN()
     }
     cout<< "\n\t\t\t\t\tEnter password:"; cin >> password;
      ifstream read;
-    read.open(username + "_deepak_property.txt",ios::app | ios::out);
-    getline(read, un);  // This reads a single line from the text file which generally contains the username only
-    getline(read, pw);  // this reads a next line from the text file which contains generally the password of the user
-
+    read.open(username + "_doc.dat",ios::app | ios::in |ios::binary);
+    //getline(read, un);  // This reads a single line from the text file which generally contains the username only
+    //getline(read, pw);  // this reads a next line from the text file which contains generally the password of the user
+    read.read((char *) &un, sizeof(un));
+    read.read((char *) &pw, sizeof(pw));
     if(un == username && pw == password)
     {
         return true;
@@ -105,17 +111,16 @@ if(choice == 1)
     cout<<"\t\t\t\t\tselect a username: "; cin>>username;
     cout<<endl;
     label:
-    cout<<"\t\t\t\t\tselect a password: "; cin>>password;
-    cout<<endl;
-
-
-
+    
     if(exist(username))
-    {
+    {    
         cout<<"\n\t\t\t ***** This user name already exists try with another name *****" << endl <<endl;
 
         goto rename;
     }
+
+    cout<<"\t\t\t\t\tselect a password: "; cin>>password;
+    cout<<endl;
 
 
     int size=0;
@@ -133,10 +138,13 @@ if(choice == 1)
 
     ofstream file;
 
-    file.open(username + "_deepak_property.txt");
-
-    file << username << endl <<password<< endl <<"";
-
+    file.open(username + "_doc.dat", ios::binary | ios::out);
+     char space = ' ';
+   // file << username << endl <<password<< endl <<"";
+    file.write((char *) &username, sizeof(username));
+    file.write((char *) &space, sizeof(space));
+    file.write((char *) &password, sizeof(password));
+    
     file.close();
 
     cout<<"\n\t\t\t\t\t ******** User registered successfully... ******** "<< endl;

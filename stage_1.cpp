@@ -13,7 +13,7 @@ string username;
 int show_data(){
       char ch;
 
-    ifstream file(username + "_deepak_property.txt",ios::in);
+    ifstream file(username + "_doc.dat",ios::in);
    cout << "\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////"<<endl;     
    
 
@@ -34,7 +34,7 @@ int enter_data()
 {     char data[1000];
     cout<<"\nEnter the data you want to enter ...   : ";
         ofstream file;
-        file.open(username+"_deepak_property.txt");
+        file.open(username+"_doc.dat");
         gotoline(file,3);
         cin.getline(data,1000,'.');
         file << data;
@@ -49,7 +49,7 @@ int enter_data()
 
 int exist(string){
     
-    ifstream fname(username + "_deepak_property.txt",ios::in);
+    ifstream fname(username + "_doc.dat",ios::in);
 
     if(fname){
         fname.close();
@@ -72,7 +72,7 @@ bool IsloggedIN()
     }
     cout<< "Enter password:"; cin >> password;
      ifstream read;
-    read.open(username + "_deepak_property.txt",ios::app | ios::out);
+    read.open(username + "_doc.dat",ios::app | ios::out);
     getline(read, un);  // This reads a single line from the text file which generally contains the username only
     getline(read, pw);  // this reads a next line from the text file which contains generally the password of the user
 
@@ -128,7 +128,7 @@ if(choice == 1)
 
     ofstream file;
 
-    file.open(username + "_deepak_property.txt");
+    file.open(username + "_doc.dat");
  
     file << username << endl <<password;
 
